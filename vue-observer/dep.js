@@ -2,16 +2,18 @@ var depUid = 0;
 
 function Dep(){
 	this.uid = depUid++;
-	this.subs = [];
+	this.subs = {};
 }
 
 Dep.prototype = {
 	addSub: function(sub){
-		this.subs.push(sub);
+		if(!this.subs[sub.uid]){
+			this.subs[sub.uid] = sub;
+		}
 	},
 	notify: function(){
-		this.subs.forEach(function(sub){
-			sub.update();
-		})
+		for(var uid in this.subs){
+			this.subs[uid].update();
+		}
 	}
 }
