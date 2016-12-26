@@ -11,7 +11,7 @@
 	Watcher.prototype = {
 		get: function(){
 			Dep.target = this;
-			var value = this.$vm._data[this.expOrFn];
+			var value = computeExpression(this.$vm._data, this.expOrFn);
 			Dep.target = null;
 			return value;
 		},
@@ -24,5 +24,14 @@
 		}
 	}
 
+	function computeExpression(scope, exp){
+		try{
+			with(scope){
+				return eval(exp);
+			}
+		} catch(e){
+			console.error('ERROR', e);
+		}
+	}
 	window.Watcher = Watcher;
 }(window)

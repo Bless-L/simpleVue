@@ -5,17 +5,29 @@
 	<title>SimpleVue</title>
 	<script src="./dep.js"></script>
 	<script src="./watcher.js"></script>
+	<script src="./compiler.js"></script>
 	<script src="./observer.js"></script>
 </head>
 <body>
+		<div id="app">
+			<p>{{title}}</p>
+			<div class="mod_card_tit">{{title}}</div>
+			<div class="mod_card_tip" v-if="tip">
+				<div class="mod_card_tip_wrap">{{tip}}
+					<p>我是测试的p的哈哈哈</p>
+				</div>
+			</div>
+			{{title}}
+		</div>
 	<script>
 		var test = new Vue({
+			el: '#app',
 			data: {
-				a: '2222',
-				b: 'asdsd',
+				title: '我是爽个',
+				tip: 'hello vue',
 			}
 		})
-		test.$watch('a', function(n, o){
+/*		test.$watch('a', function(n, o){
 			console.group();
 			console.log('你是a的第一个依赖监听');
 			console.log('你的旧值是',o);
@@ -33,7 +45,20 @@
 			console.log('do something b');
 			console.log('你监听了两个数据');
 			console.groupEnd();
-		})
+		})*/
 	</script>
+<!-- 	<script type="text/javascript">
+	
+	var text = `<div class="mod_card_hd">
+			    	<div class="mod_card_tit">{{title}}</div>
+			    	<div class="mod_card_tip" v-if="tip">
+			    	<div class="mod_card_tip_wrap">{{tip}}</div>
+		    		</div>
+				</div>`;
+	var node = document.querySelector('.mod_card_hd');
+
+	nodeToFragment(node);
+
+</script> -->
 </body>
 </html>

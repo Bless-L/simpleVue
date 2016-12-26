@@ -38,14 +38,20 @@ Observer.prototype = {
 
 function Vue(options){
 	this.$options = options;
-	var data = this._data = this.$options.data;
+	this.$el = typeof options.el === 'string'
+			? document.querySelector(options.el)
+			: options.el || document.body;
 
+	var data = this._data = this.$options.data;
+	
 	var ob = new Observer(this._data);
 	if(!ob) return;
 
 	Object.keys(data).forEach(function(key){
 		this._proxy(key);
 	}.bind(this))
+
+	new Compiler({el: this.$el, vm: this});
 }
 
 Vue.prototype = {
