@@ -10,14 +10,25 @@
 </head>
 <body>
 		<div id="app">
-			<p>{{title}}</p>
+			<p>{{tip}}</p>
 			<div class="mod_card_tit">{{title}}</div>
-			<div class="mod_card_tip" v-if="tip">
-				<div class="mod_card_tip_wrap">{{tip}}
-					<p>我是测试的p的哈哈哈</p>
+			<div class="mod_card_tip" :bind="{{tip}}">
+				<div class="mod_card_tip_wrap">
+					<p>{{tip + '我要选李白' }}我是测试的p的哈哈哈</p>
 				</div>
 			</div>
-			{{title}}
+			<label for="haha"><input type="text" v-model="msg">{{msg}}</label>
+
+			<div v-if="isActive">
+				<p>你好</p>
+				<h2>{{b}}</h2>
+			</div>
+			<div v-for="item in items">
+				<p>{{ item.id }}</p>
+				<ul>
+					<li v-for="txt in item.text">{{txt.txt}}</li>
+				</ul>
+			</div>
 		</div>
 	<script>
 		var test = new Vue({
@@ -25,6 +36,14 @@
 			data: {
 				title: '我是爽个',
 				tip: 'hello vue',
+				msg: '',
+				isActive: false,
+				b: '继续测试',
+				items: [
+			        {id: '10000', text: [{txt: 'start'}, {txt: ',10000,'}, {txt: 'end'},]},
+			        {id: '10001', text: [{txt: 'start'}, {txt: ',10001,'}, {txt: 'end'},]},
+			        {id: '10002', text: [{txt: 'start'}, {txt: ',10002,'}, {txt: 'end'},]},
+			    ],
 			}
 		})
 /*		test.$watch('a', function(n, o){

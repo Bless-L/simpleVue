@@ -11,7 +11,7 @@
 	Watcher.prototype = {
 		get: function(){
 			Dep.target = this;
-			var value = computeExpression(this.$vm._data, this.expOrFn);
+			var value = computeExpression(this.$vm, this.expOrFn);
 			Dep.target = null;
 			return value;
 		},
@@ -24,6 +24,7 @@
 		}
 	}
 
+	//精髓在于with与eval的应用，用with指定scope作用域，然后用eval执行表达式
 	function computeExpression(scope, exp){
 		try{
 			with(scope){
